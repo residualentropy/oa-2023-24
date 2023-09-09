@@ -6,15 +6,19 @@ Currently, the repository contains some frontend code for a webpage with a graph
 
 **Your job:** Populate the graphs with real data.
 
-Your "real data" can come from anywhere: a file that you find on something like [kaggle](https://www.kaggle.com/), an enterprise API, Google BigQuery, etc. We will be more impressed with types of data sources that are more practical and/or prevalent in industry.
+Your "real data" can come from anywhere: a file that you find on something like [kaggle](https://www.kaggle.com/), an enterprise API, Google BigQuery, etc.
 
-To do this, either modify the sample Express.js backend, or create a new backend in your language/framework of your choice.
+To do this, either modify the sample Express.js backend in the [backend](./backend/) folder, or create a new backend in your language/framework of your choice.
+
+Since most backends will need environment configurations for secret credentials and such, and might require different steps to run locally, we require you to deploy your backend. One free and easy to use service that supports most popular runtime environments is [render](render.com), but feel free to use whatever service you'd like. You can just hardcode the URL to your deployed backend endpoint like the sample code has done in [graph.mjs](./frontend/graph.mjs).
 
 Make sure to update the webpage to explain the data that your graphs are populated with.
 
-Ways to go above and beyond:
+We will view your submission using the VS Code [Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to serve the frontend on `http://localhost:5500`, so make sure that is whitelisted for [cors](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on your backend server
+
+Ways to go above and beyond include, but are not limited to:
+- use a practical data source i.e. not just a file
 - make your graph update in real time
 - apply some secondary processing on the data i.e. create new insights on the data
   - the more advanced the data science technique, the more impressed we will be
 - improve the visual appeal of the webpage
-- deploy your backend
