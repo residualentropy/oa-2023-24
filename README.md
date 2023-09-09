@@ -15,3 +15,4 @@ Bonus points if (but not only if):
 - there is secondary processing on the data i.e. you are creating new insights on the data
   - the more advanced the data science technique, the more impressed we will be
 - you improve the visual appeal of the webpage
+- you deploy the webpage and include the live url somewhere that we'll see it
