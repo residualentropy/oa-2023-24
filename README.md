@@ -10,7 +10,7 @@ Your "real data" can come from anywhere: a file that you find on something like 
 
 To do this, either modify the sample Express.js backend in the [backend](./backend/) folder, or create a new backend in your language/framework of your choice.
 
-Since most backends will need environment configurations for secret credentials and such, and might require different steps to run locally, we require you to deploy your backend. One free and easy to use service that supports most popular runtime environments is [render](render.com), but feel free to use whatever service you'd like. You can just hardcode the URL to your deployed backend endpoint like the sample code has done in [graph.mjs](./frontend/graph.mjs).
+Since most backends will need environment configurations for secret credentials and such, and might require different steps to run locally, we require you to deploy your backend. One free and easy to use service that supports most popular runtime environments is [render](https://render.com), but feel free to use whatever service you'd like. You can just hardcode the URL to your deployed backend endpoint like the sample code has done in [graph.mjs](./frontend/graph.mjs).
 
 Make sure to update the webpage to explain the data that your graphs are populated with.
 
