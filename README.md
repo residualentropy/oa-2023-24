@@ -2,7 +2,7 @@
 
 This repository has starter code that you will build on to show your skills as a developer. [Fork this repository](https://github.com/DSSD-Madison/oa-2023-24/fork) to get started on your own copy.
 
-Currently, the repository contains some frontend code for a webpage with a graph populated with mock data recieved from a backend server.
+Currently, the repository contains some frontend code for a webpage with a graph (made with [Plotly.js](https://plotly.com/javascript/)) populated with mock data recieved from a backend server.
 
 **Your job:** Populate the graphs with real data.
 
