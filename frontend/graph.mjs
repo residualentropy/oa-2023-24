@@ -98,6 +98,8 @@ async function drawPlot() {
   setAvgHeader(`Average over last 10 minutes: ${total_avg.toFixed(2)}°C`);
   if (total_avg <= FOOD_SAFETY_TEMP_C) {
     setHeader("Is my fridge working? <i><span style=\"color:green;\">YES!</i>");
+  } else if (total_avg < 0) {
+    setHeader("Is my fridge working? <i><span style=\"color:blue;\">KINDA? IT'S A FREEZER NOW!</span><i>");
   } else {
     setHeader("Is my fridge working? <i><span style=\"color:red;\">NO!</span><i>");
   }
