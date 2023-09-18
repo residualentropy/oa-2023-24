@@ -19,7 +19,7 @@ Lastly, the microcontroller I am using is ESP8266-based, and is connected to sev
 
 ### The Raspberry Pi/ESP8266 code...
 
-You can find all of that code at [https://github.com/residualentropy/rpi-esp8266-ds18b20](https://github.com/residualentropy/rpi-esp8266-ds18b20). 
+You can find all of that code at [https://github.com/residualentropy/rpi-esp8266-ds18b20](https://github.com/residualentropy/rpi-esp8266-ds18b20). I know someone is going to ask why I didn't use the WiFi capabilities of the ESP8266 and skip the Raspberry Pi altogether. The answer is simply that the ESP8266 does not have stable support for WPA2-Enterprise networks like those found on campus. In a home setting this likely would be possible. 
 
 ### Food safety...
 
