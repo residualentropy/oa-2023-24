@@ -14,7 +14,7 @@ function setAvgHeader(s) {
 }
 
 async function drawPlot() {
-  let temps = fetch(`${BACKEND_URL}/api/r/temps_recent`);
+  let temps = fetch(`${BACKEND_URL}/api/r/temps_recent?cacheb=${Math.random()}`);
   temps = await (await temps).json();
   let names = fetch(`${BACKEND_URL}/api/r/sensor_names`);
   names = await (await names).json();
@@ -55,7 +55,7 @@ async function drawPlot() {
       let y = temps_instance.readings[id];
       traces[id].x.push(x);
       traces[id].y.push(y);
-      if (traces[id].name !== "Evaporator" && (now - x) > AVG_TIME) {
+      if (traces[id].name !== "Evaporator" && (now - x) < AVG_TIME) {
         total_sum += y;
         total_count += 1;
       }
@@ -63,6 +63,7 @@ async function drawPlot() {
     traces["_foodsafety"].x.push(x);
     traces["_foodsafety"].y.push(FOOD_SAFETY_TEMP_C);
   }
+  console.log(total_sum, total_count);
   let total_avg = total_sum / total_count;
   console.log("Total Average Temperature (inside fridge, degs C):", total_avg);
   let traces_without_evaporator = Object.values(traces);
