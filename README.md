@@ -17,6 +17,10 @@ The Raspberry Pi code was also written in Python, and simply transfers data betw
 
 Lastly, the microcontroller I am using is ESP8266-based, and is connected to several DS18B20 digital temperature probes, using the `microDS18B20` library. It is simply connected to the Raspberry Pi over a USB cable, and is located inside the minifridge. 
 
+### The Raspberry Pi/ESP8266 code...
+
+You can find all of that code at [https://github.com/residualentropy/rpi-esp8266-ds18b20](https://github.com/residualentropy/rpi-esp8266-ds18b20). 
+
 ### Food safety...
 
 The frontend takes the *maximum food-safe temperature* to be 4°C. This value was given by the FDA (US Food and Drug Administration) here: [https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely](https://www.fda.gov/consumers/consumer-updates/are-you-storing-food-safely). I am well aware that food safety is more complicated than this single number, and that using the average value (over 4 locations and 20 minutes) does not *strictly speaking* tell you whether the fridge is working or not. However, I think saying that it must be on average below the FDA-recommended maximum temperature is fair, even though it doesn't capture the infinite nuances of how exactly you can define whether a fridge is "working". 
