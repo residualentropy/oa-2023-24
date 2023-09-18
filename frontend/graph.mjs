@@ -70,14 +70,24 @@ async function drawPlot() {
     console.log(traces_without_evaporator);
     console.log(evaporator_trace);
     Plotly.newPlot('graph1', traces_without_evaporator, {
-        title: 'Temperatures Inside Minifridge',
+        title: 'Temperatures Inside My Minifridge (Real Time)',
         width: window.innerWidth,
         height: window.innerHeight * (1/2),
+        yaxis: {
+            title: {
+                text: 'Temperature (°C)',
+            },
+        },
     });
     Plotly.newPlot('graph2', [traces["_foodsafety"], evaporator_trace], {
-        title: 'Temperature of Evaporator',
+        title: 'Temperature Of Evaporator (Real Time)',
         width: window.innerWidth,
         height: window.innerHeight * (1/3),
+        yaxis: {
+            title: {
+                text: 'Temperature (°C)',
+            },
+        },
     });
     if (total_avg <= FOOD_SAFETY_TEMP_C) {
         setHeader("Is my fridge working? <i><span style=\"color:green;\">YES!</i>");
