@@ -5,6 +5,8 @@ const BACKEND_URL = "https://oa-backend.residualentropy.repl.co";
 const FOOD_SAFETY_TEMP_C = 4;
 const AVG_TIME = 10 * 60 * 1000;
 
+const DEBUG = false;
+
 function setHeader(s) {
   document.getElementById("header").innerHTML = s;
 }
@@ -63,9 +65,8 @@ async function drawPlot() {
     traces["_foodsafety"].x.push(x);
     traces["_foodsafety"].y.push(FOOD_SAFETY_TEMP_C);
   }
-  console.log(total_sum, total_count);
   let total_avg = total_sum / total_count;
-  console.log("Total Average Temperature (inside fridge, degs C):", total_avg);
+  if (DEBUG) console.log("Total Average Temperature (inside fridge, degs C):", total_avg);
   let traces_without_evaporator = Object.values(traces);
   let evaporator_trace;
   for (let i = 0; i < traces_without_evaporator.length; i++) {
@@ -74,8 +75,8 @@ async function drawPlot() {
       break;
     }
   }
-  console.log(traces_without_evaporator);
-  console.log(evaporator_trace);
+  if (DEBUG) console.log(traces_without_evaporator);
+  if (DEBUG) console.log(evaporator_trace);
   Plotly.newPlot('graph1', traces_without_evaporator, {
     title: 'Temperatures Inside My Minifridge (Real Time)',
     width: window.innerWidth,
