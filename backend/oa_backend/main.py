@@ -1,8 +1,14 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import time, secrets, hashlib, base64, os
+import time, secrets, hashlib, base64, os, pickle
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+)
 
 SECRET = os.environ["BACKEND_WRITE_SECRET"].encode('utf-8')
 
@@ -12,8 +18,48 @@ class Temps(BaseModel):
   readings: dict[str, float]  # Temperatures
 
 
+average = lambda xs: sum(xs) / len(xs)
+
+
+def average_temps(xs: list[Temps]) -> Temps:
+  return Temps(unixts=xs[0].unixts,
+               readings={
+                   key: average([x.readings[key] for x in xs])
+                   for key in xs[0].readings.keys()
+               })
+
+
 recent_count = 20 * 60
 temps_recent = []
+
+downsampling_amt = 10
+downsampling_window = []
+last_2h_count = (120 * 60) / downsampling_amt
+last_2h_temps = []
+
+
+def save_data():
+  global temps_recent, last_2h_temps
+  with open("snapshot.pkl", "wb") as f:
+    pickle.dump(
+        {
+            "temps_recent": temps_recent,
+            "last_2h_temps": last_2h_temps,
+        }, f)
+
+
+def try_restore_data():
+  global temps_recent, last_2h_temps
+  try:
+    with open("snapshot.pkl", "rb") as f:
+      obj = pickle.load(f)
+      temps_recent = obj["temps_recent"]
+      last_2h_temps = obj["last_2h_temps"]
+  except:
+    print("FAILED TO RESTORE (may just be first startup)")
+
+
+try_restore_data()
 
 
 class TempUpdate(BaseModel):
@@ -84,6 +130,14 @@ async def update_temperatures(update: TempUpdate):
   temps_recent.append(temps)
   while len(temps_recent) > recent_count:
     temps_recent.pop(0)
+  global downsampling_window
+  downsampling_window.append(temps)
+  if len(downsampling_window) >= downsampling_amt:
+    last_2h_temps.append(average_temps(downsampling_window))
+    downsampling_window = []
+  while len(last_2h_temps) > last_2h_count:
+    last_2h_temps.pop(0)
+  save_data()
   return {"w-ok": True}
 
 
@@ -91,6 +145,14 @@ async def update_temperatures(update: TempUpdate):
 async def get_recent_temperatures():
   return {
       "recent": temps_recent,
+  }
+
+
+@app.get("/api/r/temp_data")
+async def get_temperature_data():
+  return {
+      "downsampled": last_2h_temps,
+      "duration": "2 Hours",
   }
 
 

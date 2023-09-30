@@ -1,0 +1,12 @@
+[package]
+name = "my-project"
+version = "0.1.0"
+authors = ["runner"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tungstenite = { version = "0.20.0", features = ["native-tls"] }
+ring = "0.16.20"
+base64 = "0.21.4"

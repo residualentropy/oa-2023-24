@@ -1,9 +1,9 @@
 const graphDiv = document.getElementById("graph");
 
-const BACKEND_URL = "https://oa-backend.residualentropy.repl.co";
+const BACKEND_URL = "<your-backend-url-here>"; # originally "https://oa-backend.residualentropy.repl.co"
 
 const FOOD_SAFETY_TEMP_C = 4;
-const AVG_TIME = 10 * 60 * 1000;
+const AVG_TIME = 2 * 60 * 60 * 1000;
 
 const DEBUG = false;
 
@@ -16,7 +16,7 @@ function setAvgHeader(s) {
 }
 
 async function drawPlot() {
-  let temps = fetch(`${BACKEND_URL}/api/r/temps_recent?cacheb=${Math.random()}`);
+  let temps = fetch(`${BACKEND_URL}/api/r/temp_data?cacheb=${Math.random()}`);
   temps = await (await temps).json();
   let names = fetch(`${BACKEND_URL}/api/r/sensor_names`);
   names = await (await names).json();
@@ -51,7 +51,7 @@ async function drawPlot() {
     ids.push(id);
   }
   let now = new Date();
-  for (const temps_instance of temps.recent) {
+  for (const temps_instance of temps.downsampled) {
     let x = new Date(temps_instance.unixts * 1000);
     for (const id of ids) {
       let y = temps_instance.readings[id];
@@ -97,7 +97,7 @@ async function drawPlot() {
       },
     },
   });
-  setAvgHeader(`Average over last 10 minutes: ${total_avg.toFixed(2)}°C`);
+  setAvgHeader(`Average over last ${temps.duration.toLowerCase()}: ${total_avg.toFixed(2)}°C`);
   if (total_avg <= 0) {
     setHeader("Is my fridge working? <i><span style=\"color:blue;\">KINDA? IT'S A FREEZER NOW!</span><i>");
   } else if (total_avg <= FOOD_SAFETY_TEMP_C) {
@@ -107,4 +107,5 @@ async function drawPlot() {
   }
 }
 
-setInterval(drawPlot, 2000);
+drawPlot();
+setInterval(drawPlot, 5_000);
